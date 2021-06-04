@@ -114,6 +114,8 @@
       zoom: 10,// starting zoom
       transformRequest: transformRequest
     });
+    
+    map.addControl(new mapboxgl.NavigationControl());
 
     $(document).ready(function () {
       $.ajax({
