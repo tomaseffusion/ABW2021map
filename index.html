@@ -22,6 +22,15 @@
       bottom: 0;
       width: 100%;
     }
+    
+    #outputcount{
+      position: absolute;
+      z-index: 1;
+      font: 700 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+      padding: 2%;
+      background: #FD0F47;      
+      color: #fff;
+    }
 
     /* Popup styling */
 
@@ -90,7 +99,7 @@
 </head>
 
 <body>
-
+  <div id='outputcount'></div>
   <div id='map'></div>
   <script>
 
@@ -117,16 +126,7 @@
     
     map.addControl(new mapboxgl.NavigationControl());
     
-    map.on('render', function() {
-    var filteredcount = map.queryRenderedFeatures({ layers: ['Locations'] }).length;
-    if(filteredcount == 0){
-      document.getElementById('outputcount').innerHTML = "<span style='color:red;'>0 Results <br> Please Adjust Filters</span>";
-    } else{
-      document.getElementById('outputcount').innerHTML = filteredcount + " Results";
-    }
-
-
-    });
+   
 
     $(document).ready(function () {
       $.ajax({
@@ -160,6 +160,17 @@
                 'circle-color': "#FD0F47"
               }
             });
+            
+             map.on('render', function() {
+                var filteredcount = map.queryRenderedFeatures({ layers: ['csvData'] }).length;
+                if(filteredcount == 0){
+                  document.getElementById('outputcount').innerHTML = "<span style='color:red;'>0 Results <br> Please Adjust Filters</span>";
+                } else{
+                  document.getElementById('outputcount').innerHTML = filteredcount + " Supporters";
+                }
+
+
+              });
 
 
             // When a click event occurs on a feature in the csvData layer, open a popup at the
